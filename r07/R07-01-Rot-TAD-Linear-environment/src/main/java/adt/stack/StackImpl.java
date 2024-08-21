@@ -44,8 +44,12 @@ public class StackImpl<T> implements Stack<T> {
 
 		if (top != -1)
 			aux = array[top--];
+		else{
+			throw new StackUnderflowException();
+		}
+
+		return aux;
 		
-		return aux;		
 	}
 
 }
