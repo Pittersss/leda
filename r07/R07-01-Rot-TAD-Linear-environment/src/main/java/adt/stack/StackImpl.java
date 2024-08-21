@@ -23,21 +23,29 @@ public class StackImpl<T> implements Stack<T> {
 
 	@Override
 	public boolean isFull() {
-		return top == array;
+		return top == array.length - 1;
 	}
 
 	@Override
 	public void push(T element) throws StackOverflowException {
-		if (!isFull())
+		if (element != null)
 		{
-			
+			if (!isFull())
+			{
+				array[++top] = element;
+			}
+		else { throw new StackOverflowException(); }
 		}
 	}
 
 	@Override
 	public T pop() throws StackUnderflowException {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		T aux = null; 
+
+		if (top != -1)
+			aux = array[top--];
+		
+		return aux;		
 	}
 
 }
