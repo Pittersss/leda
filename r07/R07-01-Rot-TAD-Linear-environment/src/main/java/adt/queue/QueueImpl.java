@@ -28,11 +28,13 @@ public class QueueImpl<T> implements Queue<T> {
 
 	private void shiftLeft() 
 	{
-		for (int i = 1; i < array.length; i--)
+		for (int i = 1; i < array.length; i++)
 		{
 			if(array[i] != null)
 			{
+				T aux = array[i - 1];
 				array[i - 1] = array[i];
+				array[i] = aux;
 			}
 		}	
 	}
