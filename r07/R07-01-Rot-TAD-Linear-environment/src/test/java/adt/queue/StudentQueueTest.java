@@ -19,6 +19,10 @@ public class StudentQueueTest {
 	public Queue<Integer> circulaQueue2;
 	public Queue<Integer> circulaQueue3;
 
+	public Queue<Integer> stackQueue1;
+	public Queue<Integer> stackQueue2;
+	public Queue<Integer> stackQueue3;
+
 	@Before
 	public void setUp() throws QueueOverflowException {
 
@@ -42,6 +46,15 @@ public class StudentQueueTest {
 		circulaQueue2.enqueue(1);
 		circulaQueue2.enqueue(2);
 
+		// Fila Circular com 3 elementos não cheia.
+		stackQueue1.enqueue(1);
+		stackQueue1.enqueue(2);
+		stackQueue1.enqueue(3);
+
+		// Fila Circular com 2 elementos de tamanho 2. Fila cheia.
+		stackQueue2.enqueue(1);
+		stackQueue2.enqueue(2);
+
 	}
 
 	private void getImplementations() {
@@ -53,6 +66,10 @@ public class StudentQueueTest {
 		circulaQueue1 = new CircularQueue<Integer>(4);
 		circulaQueue2 = new CircularQueue<Integer>(2);
 		circulaQueue3 = new CircularQueue<Integer>(5);
+
+		stackQueue1 = new QueueUsingStack<Integer>(4);
+		stackQueue2 = new QueueUsingStack<Integer>(2);
+		stackQueue3 = new QueueUsingStack<Integer>(5);
 	}
 
 	// MÉTODOS DE TESTE
@@ -201,4 +218,91 @@ public class StudentQueueTest {
 
 		assert circulaQueue1.isFull();
 	}
+
+	//Queue Using Stacks
+
+	@Test
+	public void testHeadStackQueue() {
+		assertEquals(new Integer(1), stackQueue1.head());
+	}
+
+	@Test
+	public void testStackIsEmpty() {
+		assertFalse(stackQueue1.isEmpty());
+		assertTrue(stackQueue3.isEmpty());
+	}
+
+	@Test
+	public void testStackIsFull() {
+		assertFalse(stackQueue1.isFull());
+	}
+
+	@Test
+	public void testStackEnqueue() {
+		try {
+			stackQueue1.enqueue(new Integer(5));
+		} catch (QueueOverflowException e) {
+			fail();
+		}
+	}
+
+	@Test(expected = QueueOverflowException.class)
+	public void testStackEnqueueComErro() throws QueueOverflowException {
+		stackQueue2.enqueue(new Integer(5)); // vai depender do tamanho que a fila
+										// foi iniciada!!!
+	}
+
+	@Test
+	public void testStackDequeue() {
+		try {
+			assertEquals(new Integer(1), stackQueue1.dequeue());
+		} catch (QueueUnderflowException e) {
+			fail();
+		}
+	}
+
+	@Test(expected = QueueUnderflowException.class)
+	public void testStackDequeueComErro() throws QueueUnderflowException {
+		assertEquals(new Integer(1), stackQueue3.dequeue()); // vai depender do
+														// tamanho que a fial
+														// foi iniciada!!!
+	}
+
+	@Test
+	public void headStackValidation1() throws QueueOverflowException, QueueUnderflowException
+	{
+		stackQueue1.enqueue(4);
+		stackQueue1.dequeue();
+		assert stackQueue1.head() == 2;
+	}
+
+	@Test
+	public void headStackValidation2() throws QueueOverflowException, QueueUnderflowException
+	{
+		stackQueue1.enqueue(4);
+		stackQueue1.dequeue();
+		stackQueue1.dequeue();
+		assert stackQueue1.head() == 3;
+	}
+
+	@Test
+	public void headStackValidation3() throws QueueOverflowException, QueueUnderflowException
+	{
+		stackQueue1.enqueue(4);
+		stackQueue1.dequeue();
+		stackQueue1.dequeue();
+		stackQueue1.dequeue();
+		assert stackQueue1.head() == 4;
+	}
+	@Test
+	public void headStackValidation4() throws QueueOverflowException, QueueUnderflowException
+	{
+		stackQueue1.enqueue(4);
+		stackQueue1.dequeue();
+		stackQueue1.dequeue();
+		stackQueue1.dequeue();
+		stackQueue1.dequeue();
+		assert stackQueue1.head() == null;
+	}
+
 }

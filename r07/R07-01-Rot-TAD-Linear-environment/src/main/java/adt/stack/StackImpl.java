@@ -40,14 +40,11 @@ public class StackImpl<T> implements Stack<T> {
 
 	@Override
 	public T pop() throws StackUnderflowException {
-		T aux = null; 
-
-		if (top != -1)
-			aux = array[top--];
-		else{
+		if (top == -1)
 			throw new StackUnderflowException();
-		}
-
+			
+		T aux = null; 
+		aux = array[top--];
 		return aux;
 		
 	}
