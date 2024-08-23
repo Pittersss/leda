@@ -13,7 +13,10 @@ public class QueueImpl<T> implements Queue<T> {
 
 	@Override
 	public T head() {
-		return array[0];
+		T myHead = null;
+		if (!isEmpty())
+			myHead = array[0];
+		return myHead;
 	}
 
 	@Override
@@ -28,27 +31,26 @@ public class QueueImpl<T> implements Queue<T> {
 
 	private void shiftLeft() 
 	{
-		for (int i = 1; i < array.length; i++)
+		for (int i = 0; i < tail; i++)
 		{
-			if(array[i] != null)
-			{
-				T aux = array[i - 1];
-				array[i - 1] = array[i];
-				array[i] = aux;
-			}
-		}	
+			array[i] = array[i + 1];
+		}
 	}
 
 	@Override
 	public void enqueue(T element) throws QueueOverflowException {
-		if (!isFull())
+		if (element != null)
 		{
-			array[++tail] = element;
+			if (!isFull())
+			{
+				array[++tail] = element;
+			}
+			else
+			{
+				throw new QueueOverflowException();
+			}
 		}
-		else
-		{
-			throw new QueueOverflowException();
-		}
+		
 	}
 
 	@Override
@@ -56,14 +58,17 @@ public class QueueImpl<T> implements Queue<T> {
 		if (!isEmpty())
 		{
 			T aux = array[0];
-			array[0] = null;
 			shiftLeft();
+			tail--;
+
 			return aux;
 		}
 		else
 		{
 			throw new QueueUnderflowException();
 		}
+
+		
 		
 	}
 

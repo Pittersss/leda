@@ -104,6 +104,43 @@ public class StudentQueueTest {
 														// foi iniciada!!!
 	}
 
+	@Test
+	public void headValidation1() throws QueueOverflowException, QueueUnderflowException
+	{
+		normalQueue1.enqueue(4);
+		normalQueue1.dequeue();
+		assert normalQueue1.head() == 2;
+	}
+
+	@Test
+	public void headValidation2() throws QueueOverflowException, QueueUnderflowException
+	{
+		normalQueue1.enqueue(4);
+		normalQueue1.dequeue();
+		normalQueue1.dequeue();
+		assert normalQueue1.head() == 3;
+	}
+
+	@Test
+	public void headValidation3() throws QueueOverflowException, QueueUnderflowException
+	{
+		normalQueue1.enqueue(4);
+		normalQueue1.dequeue();
+		normalQueue1.dequeue();
+		normalQueue1.dequeue();
+		assert normalQueue1.head() == 4;
+	}
+	@Test
+	public void headValidation4() throws QueueOverflowException, QueueUnderflowException
+	{
+		normalQueue1.enqueue(4);
+		normalQueue1.dequeue();
+		normalQueue1.dequeue();
+		normalQueue1.dequeue();
+		normalQueue1.dequeue();
+		assert normalQueue1.head() == null;
+	}
+
 	//Circular Queue Tests
 
 	//Base Tests
