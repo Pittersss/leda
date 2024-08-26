@@ -8,8 +8,7 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 	public DoubleLinkedListImpl()
 	{
 		this.head = new DoubleLinkedListNode<T>();
-		this.last = (DoubleLinkedListNode<T>)head;
-		
+		this.last = new DoubleLinkedListNode<T>();
 	}
 
 	@Override
@@ -19,14 +18,14 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 		newElement.setData(element);
 		newElement.setNext(getHead());
 		newElement.setPrevious(new DoubleLinkedListNode<T>());
-		((DoubleLinkedListNode<T>)this.getHead()).setPrevious(newElement);
 		if (head.isNIL())
 		{
 			setLast(newElement);
 		}
-		setHead(newElement);
+		this.setHead(newElement);
+		((DoubleLinkedListNode<T>)this.getHead().next).setPrevious(newElement);
 		
-		this.getHead();
+		
 		
 		
 		
@@ -51,6 +50,16 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 
 	public void setLast(DoubleLinkedListNode<T> last) {
 		this.last = last;
+	}
+
+	@Override
+	public DoubleLinkedListNode<T> getHead()
+	{
+		DoubleLinkedListNode<T> myHead = new DoubleLinkedListNode<T>();
+		myHead.data = this.head.data;
+		myHead.next = this.head.next;
+		
+		return myHead;
 	}
 
 }
