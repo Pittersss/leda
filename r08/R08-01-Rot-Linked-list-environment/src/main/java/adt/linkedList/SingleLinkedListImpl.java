@@ -56,7 +56,7 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 		}
 		else
 		{
-			SingleLinkedListNode<T> auxHead = new SingleLinkedListNode<>();
+			SingleLinkedListNode<T> auxHead = new SingleLinkedListNode<T>();
 			auxHead = head;
 
 			while(!auxHead.isNIL())
