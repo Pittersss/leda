@@ -1,5 +1,7 @@
 package adt.linkedList;
 
+import static org.junit.Assert.fail;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,8 +25,8 @@ public class StudentLinkedListTest {
 
 	private void getImplementations() {
 		// TODO O aluno deve ajustar aqui para instanciar sua implementação
-		lista1 = null;
-		lista2 = null;
+		lista1 = new SingleLinkedListImpl<Integer>();
+		lista2 = new SingleLinkedListImpl<Integer>();
 	}
 
 	@Test
@@ -66,6 +68,21 @@ public class StudentLinkedListTest {
 		lista1.remove(1);
 		Assert.assertEquals(1, lista1.size());
 
+	}
+
+	@Test
+	public void testRemoveListaVazia() {
+		Assert.assertEquals(3, lista1.size());
+		try
+		{
+			lista2.remove(3);
+		}
+		catch (Exception e)
+		{
+			fail();
+		}
+		
+	
 	}
 
 	@Test
