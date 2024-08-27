@@ -64,25 +64,26 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 		return myHead;
 	}
 
-	// @Override 
-	// public void insert(T element) 
-	// {
-	// 	DoubleLinkedListNode<T> newElement = new DoubleLinkedListNode<T>();
-	// 	if(isEmpty())
-	// 	{
-	// 		newElement.setData(element);
-	// 		newElement.setNext(new DoubleLinkedListNode<T>());
-	// 		newElement.setPrevious(new DoubleLinkedListNode<T>());
-	// 		setLast(newElement);
-	// 		setHead(newElement);
-	// 	}
-	// 	else
-	// 	{
-	// 		newElement.setData(element);
-	// 		newElement.setNext(new DoubleLinkedListNode<T>());
-	// 		newElement.setPrevious(getLast());
-	// 		setLast(newElement);
-	// 	}
-	// }
+	@Override 
+	public void insert(T element) 
+	{
+		DoubleLinkedListNode<T> newElement = new DoubleLinkedListNode<T>();
+		if(isEmpty())
+		{
+			newElement.setData(element);
+			newElement.setNext(new DoubleLinkedListNode<T>());
+			newElement.setPrevious(new DoubleLinkedListNode<T>());
+			setLast(newElement);
+			setHead(newElement);
+		}
+		else
+		{
+			newElement.setData(element);
+			newElement.setNext(new DoubleLinkedListNode<T>());
+			getLast().setNext(newElement);
+			newElement.setPrevious(getLast());
+			setLast(newElement);
+		}
+	}
 
 }

@@ -30,7 +30,7 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 	@Override
 	public T search(T element) {
 		T myElement = null;
-		SingleLinkedListNode<T> auxHead = new SingleLinkedListNode<>();
+		SingleLinkedListNode<T> auxHead = new SingleLinkedListNode<T>();
 		auxHead = head;
 		while (!auxHead.isNIL())
 		{
