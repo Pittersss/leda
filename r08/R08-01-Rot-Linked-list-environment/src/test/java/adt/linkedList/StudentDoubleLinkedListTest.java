@@ -30,8 +30,6 @@ public class StudentDoubleLinkedListTest extends StudentLinkedListTest {
 		lista2 = new SingleLinkedListImpl<Integer>();
 		lista3 = new DoubleLinkedListImpl<Integer>();
 		lista4 = new DoubleLinkedListImpl<Integer>();
-
-
 	}
 
 	// Métodos de DoubleLinkedList
