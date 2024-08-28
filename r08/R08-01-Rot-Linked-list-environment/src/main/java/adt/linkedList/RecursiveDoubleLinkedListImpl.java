@@ -20,7 +20,20 @@ public class RecursiveDoubleLinkedListImpl<T> extends
 			}
 			else
 			{
-				this.previous.insertFirst(element);
+				RecursiveDoubleLinkedListImpl<T> posteriorElement = new RecursiveDoubleLinkedListImpl<T>();
+				RecursiveDoubleLinkedListImpl<T> afterPosteriorElement = new RecursiveDoubleLinkedListImpl<T>();
+				posteriorElement.setData(this.getData());
+				posteriorElement.setPrevious(this);
+				posteriorElement.setNext(this.getNext().getNext());
+				this.setData(element);
+
+				afterPosteriorElement.setData(this.getNext().getNext().getData());
+				afterPosteriorElement.setNext(this.getNext().getNext().getNext());
+				this.getNext().setNext(afterPosteriorElement);
+
+				((RecursiveDoubleLinkedListImpl)this.getNext().getNext()).setPrevious(posteriorElement);
+				this.setNext(posteriorElement);
+				
 			}
 		}
 		
