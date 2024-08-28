@@ -22,7 +22,11 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 	@Override
 	public int size() {
 		int counter = 0;
+<<<<<<< HEAD
 		if (this.isEmpty())
+=======
+		if (isEmpty())
+>>>>>>> 888c206f33fd39e46f6e39d9cc6ddf3ff6e4d76a
 		{
 			counter = 0;
 		}

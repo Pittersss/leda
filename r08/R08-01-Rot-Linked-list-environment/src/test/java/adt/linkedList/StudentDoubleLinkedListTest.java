@@ -7,6 +7,7 @@ import org.junit.Test;
 public class StudentDoubleLinkedListTest extends StudentLinkedListTest {
 
 	private DoubleLinkedList<Integer> lista3;
+	private	DoubleLinkedList<Integer> lista4;
 
 	@Before
 	public void setUp() throws Exception {
@@ -28,6 +29,7 @@ public class StudentDoubleLinkedListTest extends StudentLinkedListTest {
 		lista1 = new DoubleLinkedListImpl<Integer>();
 		lista2 = new SingleLinkedListImpl<Integer>();
 		lista3 = new DoubleLinkedListImpl<Integer>();
+		lista4 = new DoubleLinkedListImpl<Integer>();
 
 
 	}
@@ -38,7 +40,6 @@ public class StudentDoubleLinkedListTest extends StudentLinkedListTest {
 	public void testInsertFirst() {
 		
 		((DoubleLinkedList<Integer>) lista1).insertFirst(4);
-		assert lista1.size() == 4;
 		Assert.assertArrayEquals(new Integer[] { 4, 3, 2, 1 }, lista1.toArray());
 	}
 
@@ -52,5 +53,20 @@ public class StudentDoubleLinkedListTest extends StudentLinkedListTest {
 	public void testRemoveLast() {
 		((DoubleLinkedList<Integer>) lista1).removeLast();
 		Assert.assertArrayEquals(new Integer[] { 3, 2 }, lista1.toArray());
+	}
+
+	//Métodos Herdados
+	@Test
+	public void testSize()
+	{
+		assert lista1.size() == 3;
+	}
+
+	@Test
+	public void testAdicionandoNoInicioListaVazia()
+	{
+		lista4.insertFirst(1);
+		Assert.assertArrayEquals(new Integer[] {1}, lista4.toArray());
+		assert lista4.search(1) ==  1;
 	}
 }
