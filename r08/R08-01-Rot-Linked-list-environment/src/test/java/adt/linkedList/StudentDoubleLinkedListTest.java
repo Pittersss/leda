@@ -8,6 +8,7 @@ public class StudentDoubleLinkedListTest extends StudentLinkedListTest {
 
 	private DoubleLinkedList<Integer> lista3;
 	private	DoubleLinkedList<Integer> lista4;
+	private RecursiveDoubleLinkedListImpl<Integer> lista5;
 
 	@Before
 	public void setUp() throws Exception {
@@ -21,6 +22,10 @@ public class StudentDoubleLinkedListTest extends StudentLinkedListTest {
 
 		// Lista com 1 elemento.
 		lista3.insert(1);
+
+		lista5.insert(3);
+		lista5.insert(2);
+		lista5.insert(1);
 	}
 
 	private void getImplementations() {
@@ -30,6 +35,7 @@ public class StudentDoubleLinkedListTest extends StudentLinkedListTest {
 		lista2 = new SingleLinkedListImpl<Integer>();
 		lista3 = new DoubleLinkedListImpl<Integer>();
 		lista4 = new DoubleLinkedListImpl<Integer>();
+		lista5 = new RecursiveDoubleLinkedListImpl<Integer>();
 	}
 
 	// Métodos de DoubleLinkedList
@@ -66,5 +72,26 @@ public class StudentDoubleLinkedListTest extends StudentLinkedListTest {
 		lista4.insertFirst(1);
 		Assert.assertArrayEquals(new Integer[] {1}, lista4.toArray());
 		assert lista4.search(1) ==  1;
+	}
+
+	//Recursive
+
+	@Test
+	public void testRemoveLastRecursive() {
+		lista5.removeLast();
+		Assert.assertArrayEquals(new Integer[] {3, 2}, lista5.toArray());
+	}
+	@Test
+
+	public void testRemoveFirstRecursive() {
+		lista5.removeFirst();
+		Assert.assertArrayEquals(new Integer[] { 2, 1 }, lista5.toArray());
+	}
+
+	@Test
+	public void testInsertFirstRecursive() {
+		lista5.removeFirst();
+		lista5.insertFirst(4);
+		Assert.assertArrayEquals(new Integer[] {4, 2, 1 }, lista5.toArray());
 	}
 }
