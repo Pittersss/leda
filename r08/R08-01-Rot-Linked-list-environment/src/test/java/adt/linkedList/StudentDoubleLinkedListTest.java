@@ -61,9 +61,24 @@ public class StudentDoubleLinkedListTest extends StudentLinkedListTest {
 
 	//Métodos Herdados
 	@Test
-	public void testSize()
+	public void testSize1()
 	{
 		assert lista1.size() == 3;
+	}
+
+	@Test
+	public void testSize2()
+	{
+		((DoubleLinkedList<Integer>) lista1).removeLast();
+		assert lista1.size() == 2;
+	}
+
+	@Test
+	public void testSize3()
+	{
+		((DoubleLinkedList<Integer>) lista1).removeLast();
+		((DoubleLinkedList<Integer>) lista1).removeLast();
+		assert lista1.size() == 1;
 	}
 
 	@Test

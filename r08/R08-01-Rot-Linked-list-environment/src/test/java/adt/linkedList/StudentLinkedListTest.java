@@ -36,9 +36,14 @@ public class StudentLinkedListTest {
 	}
 
 	@Test
-	public void testSize() {
+	public void testSize1() {
 		Assert.assertEquals(3, lista1.size());
 		Assert.assertEquals(0, lista2.size());
+	}
+	@Test
+	public void testSize2() {
+		lista1.remove(2);
+		assert 2 == lista1.size();
 	}
 
 	@Test

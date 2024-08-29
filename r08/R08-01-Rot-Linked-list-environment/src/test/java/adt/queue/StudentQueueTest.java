@@ -81,9 +81,17 @@ public class StudentQueueTest {
 	}
 
 	@Test(expected = QueueUnderflowException.class)
-	public void testDequeueComErro() throws QueueUnderflowException {
+	public void testDequeueComErro1() throws QueueUnderflowException {
 		assertEquals(new Integer(1), queue3.dequeue()); // vai depender do
 														// tamanho que a fial
 														// foi iniciada!!!
+	}
+
+	@Test(expected = QueueUnderflowException.class)
+	public void testDequeueComErro2() throws QueueUnderflowException {
+		queue1.dequeue();
+		queue1.dequeue();
+		queue1.dequeue();
+		queue1.dequeue();
 	}
 }

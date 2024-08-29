@@ -51,22 +51,16 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 	public void removeLast() {
 		if (!isEmpty())
 		{
-			DoubleLinkedListNode<T> newLast = new DoubleLinkedListNode<T>();
-
-			newLast.setData(this.getLast().getPrevious().getData());
-			newLast.setNext(new DoubleLinkedListNode<T>());
-
-			if (this.size() > 1)
+			if(size() - 1 >= 1)
 			{
-				newLast.setPrevious(this.getLast().getPrevious().getPrevious());
-				getLast().getPrevious().getPrevious().setNext(newLast);
+				getLast().getPrevious().setNext(new DoubleLinkedListNode<T>());
+				this.setLast(getLast().getPrevious());
 			}
-			else{
-				newLast.setPrevious(new DoubleLinkedListNode<T>());
+			else
+			{
+				this.setLast(new DoubleLinkedListNode<T>());
 			}
 			
-			
-			this.setLast(newLast);
 		}
 		
 	}
