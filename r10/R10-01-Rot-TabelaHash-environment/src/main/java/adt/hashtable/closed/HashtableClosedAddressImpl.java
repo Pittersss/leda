@@ -3,6 +3,7 @@ package adt.hashtable.closed;
 import adt.hashtable.hashfunction.HashFunction;
 import adt.hashtable.hashfunction.HashFunctionClosedAddressMethod;
 import adt.hashtable.hashfunction.HashFunctionFactory;
+import adt.hashtable.hashfunction.HashFunctionMultiplicationMethod;
 import util.Util;
 
 public class HashtableClosedAddressImpl<T> extends
@@ -66,8 +67,10 @@ public class HashtableClosedAddressImpl<T> extends
 
 	@Override
 	public void insert(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		HashFunctionMultiplicationMethod<T> metodoMultiplicacao = new HashFunctionMultiplicationMethod<T>(size());
+		int hashCode = metodoMultiplicacao.hash(element);
+
+		table[hashCode] = element;
 	}
 
 	@Override
