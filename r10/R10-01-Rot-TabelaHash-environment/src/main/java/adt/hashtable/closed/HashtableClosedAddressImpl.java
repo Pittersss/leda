@@ -2,6 +2,7 @@ package adt.hashtable.closed;
 
 import adt.hashtable.hashfunction.HashFunction;
 import adt.hashtable.hashfunction.HashFunctionClosedAddressMethod;
+import adt.hashtable.hashfunction.HashFunctionDivisionMethod;
 import adt.hashtable.hashfunction.HashFunctionFactory;
 import adt.hashtable.hashfunction.HashFunctionMultiplicationMethod;
 import util.Util;
@@ -67,10 +68,14 @@ public class HashtableClosedAddressImpl<T> extends
 
 	@Override
 	public void insert(T element) {
-		HashFunctionMultiplicationMethod<T> metodoMultiplicacao = new HashFunctionMultiplicationMethod<T>(size());
-		int hashCode = metodoMultiplicacao.hash(element);
-
-		table[hashCode] = element;
+		
+		int hashCode = new HashFunctionDivisionMethod<T>(size()).hash(element);
+		if (table[hashCode] != null)
+		{
+			this.COLLISIONS++;
+			table[hashCode] = element;
+		}
+		
 	}
 
 	@Override
@@ -81,8 +86,7 @@ public class HashtableClosedAddressImpl<T> extends
 
 	@Override
 	public T search(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		((LinkedList)table).
 	}
 
 	@Override
