@@ -27,3 +27,4 @@ public abstract class AbstractHashtableClosedAddress<T> extends
 		this.table = new LinkedList[size];
 	}
 }
+ 

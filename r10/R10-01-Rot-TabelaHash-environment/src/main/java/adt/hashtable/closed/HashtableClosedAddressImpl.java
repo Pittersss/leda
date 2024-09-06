@@ -1,6 +1,9 @@
 package adt.hashtable.closed;
 
+import java.util.LinkedList;
+
 import adt.hashtable.hashfunction.HashFunction;
+import adt.hashtable.hashfunction.HashFunctionClosedAddress;
 import adt.hashtable.hashfunction.HashFunctionClosedAddressMethod;
 import adt.hashtable.hashfunction.HashFunctionDivisionMethod;
 import adt.hashtable.hashfunction.HashFunctionFactory;
@@ -31,9 +34,10 @@ public class HashtableClosedAddressImpl<T> extends
 	 * @param method
 	 */
 
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public HashtableClosedAddressImpl(int desiredSize,
-			HashFunctionClosedAddressMethod method) {
+		HashFunctionClosedAddressMethod method) {
 		int realSize = desiredSize;
 
 		if (method == HashFunctionClosedAddressMethod.DIVISION) {
@@ -68,31 +72,58 @@ public class HashtableClosedAddressImpl<T> extends
 
 	@Override
 	public void insert(T element) {
-		
-		int hashCode = new HashFunctionDivisionMethod<T>(size()).hash(element);
-		if (table[hashCode] != null)
+		if (!isFull())
 		{
-			this.COLLISIONS++;
-			table[hashCode] = element;
+			int myHashCode = ((HashFunctionClosedAddress)hashFunction).hash(element);
+			if (table[myHashCode] != null)
+			{
+				this.COLLISIONS++;
+				((LinkedList)table[myHashCode]).add(element);
+			}
+			else{
+				table[myHashCode] = new LinkedList<T>();
+				((LinkedList)table[myHashCode]).add(element);
+			}
+			elements++;
+		}
+	}
+
+	@Override
+	public void remove(T element) {
+		if (!isEmpty())
+		{
+			int myHashCode = ((HashFunctionClosedAddress)hashFunction).hash(element);
+			if (((LinkedList)table[myHashCode]).contains(element))
+			{
+				((LinkedList)table[myHashCode]).remove(element);
+			}
+			elements--;
 		}
 		
 	}
 
 	@Override
-	public void remove(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
-	}
+	public T search(T element) 
+	{
+		int myHashCode = ((HashFunctionClosedAddress)hashFunction).hash(element);
+		T myElement = null;
+		if (this.table[myHashCode] != null && ((LinkedList)table[myHashCode]).indexOf(element) != -1)
+		{
+			myElement = element;
+		}
 
-	@Override
-	public T search(T element) {
-		((LinkedList)table).
+		return myElement;
 	}
 
 	@Override
 	public int indexOf(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		int myHashCode = ((HashFunctionClosedAddress)hashFunction).hash(element);
+
+		if (table[myHashCode] == null || !((LinkedList)table[myHashCode]).contains(element))
+		{
+			myHashCode = -1;
+		}
+		return myHashCode;
 	}
 
 }
