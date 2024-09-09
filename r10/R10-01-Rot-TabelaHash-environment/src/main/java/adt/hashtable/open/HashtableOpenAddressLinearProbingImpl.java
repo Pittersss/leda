@@ -1,5 +1,7 @@
 package adt.hashtable.open;
 
+import javax.swing.text.html.parser.Element;
+
 import adt.hashtable.hashfunction.HashFunctionClosedAddressMethod;
 import adt.hashtable.hashfunction.HashFunctionLinearProbing;
 
@@ -15,11 +17,15 @@ public class HashtableOpenAddressLinearProbingImpl<T extends Storable> extends
 
 	@Override
 	public void insert(T element) {
-		if (!isFull())
+		if (isFull())
 		{
+			throw new HashtableOverflowException();
+		}
 			int probe = 0;
 			int myHashCode = ((HashFunctionLinearProbing)hashFunction).hash(element, 0);
-			while (table[myHashCode] != null && probe != table.length - 1)
+			while (!(table[myHashCode] instanceof DELETED) 
+					&& table[myHashCode] != null 
+					&& probe != table.length - 1)
 			{
 				myHashCode = ((HashFunctionLinearProbing)hashFunction).hash(element, ++probe);
 				COLLISIONS++;
@@ -28,7 +34,7 @@ public class HashtableOpenAddressLinearProbingImpl<T extends Storable> extends
 			{
 				table[myHashCode] = element;
 			}
-		}
+			elements++;
 		
 	}
 
@@ -39,16 +45,19 @@ public class HashtableOpenAddressLinearProbingImpl<T extends Storable> extends
 			int probe = 0;
 			int myHashCode = ((HashFunctionLinearProbing)hashFunction).hash(element, probe);
 
-			while(!table[myHashCode].equals(element) && probe != table.length - 1)
+			while(table[myHashCode] != null &&
+			 	!table[myHashCode].equals(element) &&
+			 	probe != table.length - 1)
 			{
 				COLLISIONS++;
 				myHashCode = ((HashFunctionLinearProbing)hashFunction).hash(element, ++probe);
 
 			}
-			if (probe != table.length - 1)
+			if (probe != table.length - 1 && table[myHashCode] != null)
 			{
 				DELETED del = new DELETED();
 				table[myHashCode] = del;
+				elements--;
 			}
 		}
 	}
@@ -59,11 +68,11 @@ public class HashtableOpenAddressLinearProbingImpl<T extends Storable> extends
 		int myHashCode = ((HashFunctionLinearProbing)hashFunction).hash(element, probe);
 		T myElement = null;
 
-		while (table[myHashCode] != null && !table[myHashCode].equals(element)) 
+		while (table[myHashCode] != null && !table[myHashCode].equals(element)  && probe != table.length) 
 		{
 			myHashCode = ((HashFunctionLinearProbing)hashFunction).hash(element, ++probe);
 		}
-		if(table[myHashCode] != null)
+		if(table[myHashCode] != null && probe != table.length)
 		{
 			myElement = (T)table[myHashCode];
 		}
@@ -73,21 +82,19 @@ public class HashtableOpenAddressLinearProbingImpl<T extends Storable> extends
 
 	@Override
 	public int indexOf(T element) {
-		int myIndex = 0;
 		int prob = 0;
 		int myHashCode = ((HashFunctionLinearProbing)hashFunction).hash(element, prob);
 
-		while (table[myHashCode] != null && !table[myHashCode].equals(myHashCode))
+		while (table[myHashCode] != null && !table[myHashCode].equals(element))
 		{
-			myIndex++;
 			myHashCode = ((HashFunctionLinearProbing)hashFunction).hash(element, ++prob);
 		}
 		if (table[myHashCode] == null)
 		{
-			myIndex = -1;
+			myHashCode = -1;
 		}
 
-		return myIndex;
+		return myHashCode;
 	}
 
 }
