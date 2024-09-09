@@ -93,4 +93,33 @@ public class StudentLinkedListTest {
 		Assert.assertArrayEquals(new Integer[] {}, lista2.toArray());
 		Assert.assertArrayEquals(new Integer[] { 3, 2, 1 }, lista1.toArray());
 	}
+
+	@Test
+	public void testMiddle()
+	{
+		SingleLinkedListNode<Integer> head = new SingleLinkedListNode<Integer>();
+		head.setData(1);
+		head.setNext(new SingleLinkedListNode<Integer>());
+		head.getNext().setData(2); 
+		head.getNext().setNext(new SingleLinkedListNode<Integer>());
+		head.getNext().getNext().setData(3);
+		head.getNext().getNext().setNext(new SingleLinkedListNode<Integer>()); 
+		assert ((SingleLinkedListImpl<Integer>)lista1).middleOfSingleLinkedList(head) == 1;
+	}
+
+	@Test
+	public void testInvertList()
+	{
+		SingleLinkedListNode<Integer> head = new SingleLinkedListNode<Integer>();
+		head.setData(1);
+		head.setNext(new SingleLinkedListNode<Integer>());
+		head.getNext().setData(2); 
+		head.getNext().setNext(new SingleLinkedListNode<Integer>());
+		head.getNext().getNext().setData(3);
+		head.getNext().getNext().setNext(new SingleLinkedListNode<Integer>());
+
+		((SingleLinkedListImpl<Integer>)lista1).inverseLinkedList(head);
+		assert head.getNext().getData() == 2;
+		
+	}
 }

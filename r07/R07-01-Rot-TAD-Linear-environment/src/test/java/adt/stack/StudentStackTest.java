@@ -15,6 +15,7 @@ public class StudentStackTest {
 	public Stack<Integer> stack2;
 	public Stack<Integer> stack3;
 	public Stack<Integer> stack4;
+	public RecursiveStack stack5;
 
 	@Before
 	public void setUp() throws StackOverflowException {
@@ -33,6 +34,10 @@ public class StudentStackTest {
 		stack3.push(1);
 		stack3.push(2);
 
+		stack5.push(3);
+		stack5.push(2);
+		stack5.push(1);
+
 	}
 
 	private void getImplementations() {
@@ -41,6 +46,7 @@ public class StudentStackTest {
 		stack2 = new StackImpl<>(2);
 		stack3 = new StackImpl<>(5);
 		stack4 = new StackImpl<>(0);
+		stack5 = new RecursiveStack(3);
 	}
 
 	// MÉTODOS DE TESTE
@@ -106,5 +112,12 @@ public class StudentStackTest {
 			fail();
 		}
 		
+	}
+
+	@Test
+	public void testMinStack() throws StackOverflowException, StackUnderflowException
+	{
+		stack5.pop();
+		assert stack5.getMin() == 2;
 	}
 }

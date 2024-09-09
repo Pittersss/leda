@@ -5,7 +5,7 @@ package adt.stack;
  * data.
  *
  */
-public interface Stack<T> {
+public interface Stack<T>{
 
 	/**
 	 * Inserts a new element in the stack or returns an exception if the stack

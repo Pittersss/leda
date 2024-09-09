@@ -120,4 +120,93 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 		this.head = head;
 	}
 
+	public void inverseLinkedList(SingleLinkedListNode<T> head)
+	{
+		int mySize = getSize(head) - 1;
+		int index = mySize;
+		SingleLinkedListNode<T> aux = head;
+
+		while (mySize != 0)
+		{
+			
+			while(index != 0)
+			{
+			if (!aux.getNext().isNIL())
+			{
+				T headData = head.getData();
+				head.setData(head.getNext().getData());
+				head.getNext().setData(headData);
+			}
+				head = head.getNext();
+				index--;                                                           
+			}
+			head = aux;
+			mySize--;
+			index = mySize;
+		}
+		
+	}
+
+	public Integer middleOfSingleLinkedList(SingleLinkedListNode<T> head)
+	{
+		int size = getSize(head);
+		SingleLinkedListNode<T> aux = head;
+
+		head = aux;
+
+		if (size % 2 != 0)
+		{
+			size /= 2;
+		}
+		else{
+			size = (size/2) + 1;
+		}
+
+		int i = 0;
+		while(i != size){
+			head = head.getNext();
+			i++;
+		}
+		return size;
+	}
+
+	public int getSize(SingleLinkedListNode<T> head)
+	{
+		int size = 0;
+		while (!head.isNIL()) 
+		{
+			head = head.getNext();
+			size++;
+		}
+		return size;
+	}
+	public T mergeTwoSingleLinkedList(SingleLinkedListNode<Integer> node1, SingleLinkedListNode<Integer> node2)
+	{
+		SingleLinkedListNode<Integer> maior = node2;
+		SingleLinkedListNode<Integer> menor = node1;
+		
+		if (node1.getData() >= node2.getData())
+		{
+			maior = node1;
+			menor = node2;
+		}
+		
+		SingleLinkedListNode<Integer> headAux = menor;
+
+		while (!maior.isNIL())
+		{
+			if (menor.isNIL() || maior.getData() <= menor.getData())
+			{
+				SingleLinkedListNode<T> newElement = new SingleLinkedListNode<T>();
+
+				menor.setNext(maior);
+				menor.getNext().setNext(menor.getNext());
+				maior = maior.getNext();
+			}
+		}
+
+
+	}
+	
+
 }
