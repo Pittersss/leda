@@ -92,6 +92,7 @@ public class StudentTestHashtableOpenAddressQuadraticProbing {
 		table1.insert(new HashtableElement(37));
 		table1.insert(new HashtableElement(49));
 		assertTrue(table1.isFull());
+		assert table1.search(new HashtableElement(50)) == null;
 
 		assertFalse(table2.isFull());
 	}
