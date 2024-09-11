@@ -1,5 +1,7 @@
 package adt.hashtable.closed;
 
+import static org.junit.Assert.assertArrayEquals;
+
 import java.util.LinkedList;
 
 import adt.hashtable.hashfunction.HashFunction;
