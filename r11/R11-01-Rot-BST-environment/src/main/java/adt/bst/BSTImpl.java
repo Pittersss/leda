@@ -134,14 +134,32 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	@Override
 	public BSTNode<T> maximum() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		return maximum(root);
+	}
+	
+	public BSTNode<T> maximum(BSTNode<T> node) {
+		BSTNode<T> myMaximum = new BSTNode<T>();
+		if(node.isEmpty())
+		{}
+		else{
+			myMaximum = maximum((BSTNode<T>)node.getRight());
+		}
+		return myMaximum;
 	}
 
 	@Override
 	public BSTNode<T> minimum() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		return minimum(root);
+	}
+
+	public BSTNode<T> minimum(BSTNode<T> node) {
+		BSTNode<T> myMinimum = new BSTNode<T>();
+		if(node.isEmpty())
+		{}
+		else{
+			myMinimum = maximum((BSTNode<T>)node.getLeft());
+		}
+		return myMinimum;
 	}
 
 	@Override
