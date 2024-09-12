@@ -22,7 +22,14 @@ public class StudentBSTTest {
 
 	@Before
 	public void setUp() {
-		tree = new BSTImpl<>();
+		tree = new BSTImpl<Integer>();
+	}
+
+	@Test
+	public void heightTest()
+	{
+		fillTree();
+		assert tree.height() == 4;
 	}
 
 	@Test
