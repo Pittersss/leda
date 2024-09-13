@@ -32,6 +32,20 @@ public class StudentBSTTest {
 		assert tree.height() == 4;
 	}
 
+	@Test 
+	public void minTest()
+	{
+		fillTree();
+		assert tree.minimum().getData() == -40;
+	}
+
+	@Test 
+	public void maxTest()
+	{
+		fillTree();
+		assert tree.minimum().getData() == -40;
+	}
+
 	@Test
 	public void testInit() {
 		assertTrue(tree.isEmpty());

@@ -10,6 +10,6 @@ public class MyMain {
 			tree.insert(i);
 		}
 
-        System.out.println(tree.search(7));
+        System.out.println(tree.minimum());
     }
 }

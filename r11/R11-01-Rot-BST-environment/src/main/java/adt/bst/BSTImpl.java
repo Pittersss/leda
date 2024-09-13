@@ -92,14 +92,14 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 			if (node.getData().compareTo(element) > 0)
 			{
-				node.setRight(newNode);
-				node.getRight().setLeft(new BSTNode<T>());
-				node.getRight().setRight(new BSTNode<T>());
-			}
-			else{
 				node.setLeft(newNode);
 				node.getLeft().setLeft(new BSTNode<T>());
 				node.getLeft().setRight(new BSTNode<T>());
+			}
+			else{
+				node.setRight(newNode);
+				node.getRight().setLeft(new BSTNode<T>());
+				node.getRight().setRight(new BSTNode<T>());
 			}	
 		}
 		else if((node.isEmpty() && node.getParent() != null))
@@ -123,11 +123,11 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 		else{
 			if (node.getData().compareTo(element) > 0)
 			{
-				insert(element, (BSTNode<T>)node.getRight());
+				insert(element, (BSTNode<T>)node.getLeft());
 			}
 			else
 			{
-				insert(element, (BSTNode<T>)node.getLeft());
+				insert(element, (BSTNode<T>)node.getRight());
 			}
 		}
 	}
@@ -154,18 +154,49 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	public BSTNode<T> minimum(BSTNode<T> node) {
 		BSTNode<T> myMinimum = new BSTNode<T>();
-		if(node.isEmpty())
-		{}
+		if(node.isLeaf())
+		{
+			myMinimum = node;
+		}
 		else{
-			myMinimum = maximum((BSTNode<T>)node.getLeft());
+			myMinimum = minimum((BSTNode<T>)node.getLeft());
 		}
 		return myMinimum;
 	}
 
 	@Override
 	public BSTNode<T> sucessor(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		return sucessor(element, root);
+	}
+
+	public BSTNode<T> sucessor(T element, BSTNode<T> node) 
+	{
+		BSTNode<T> mySucessor = new BSTNode<T>();
+		
+		if ( node.isEmpty() )
+		{}
+		else{
+			if ( node.getData().equals(element) )
+			{
+				if (!node.getRight().isEmpty())
+				{
+					mySucessor = minimum(node);
+				}
+				}	
+		else{
+			mySucessor = sucessor(element, node);
+			}
+		}
+		if( mySucessor.isEmpty()  && node.getData().compareTo(element) > 0 ) 
+		{
+			if (search(element) != null)
+			{
+				mySucessor = node;
+			}
+		} 
+
+		return mySucessor;
+
 	}
 
 	@Override
