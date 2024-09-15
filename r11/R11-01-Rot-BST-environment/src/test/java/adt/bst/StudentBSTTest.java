@@ -23,6 +23,7 @@ public class StudentBSTTest {
 	@Before
 	public void setUp() {
 		tree = new BSTImpl<Integer>();
+
 	}
 
 	@Test
@@ -43,7 +44,49 @@ public class StudentBSTTest {
 	public void maxTest()
 	{
 		fillTree();
-		assert tree.minimum().getData() == -40;
+		assert tree.maximum().getData() == 232;
+	}
+
+	@Test
+	public void sucessorRootTest()
+	{
+		fillTree();
+		assert tree.sucessor(6).getData() == 9;
+	}
+
+	@Test
+	public void predecessorRootTest()
+	{
+		fillTree();
+		assert tree.predecessor(6).getData() == 5;
+	}
+
+	@Test
+	public void predecessorTreeOnlyRoot()
+	{
+		//BSTNode<Integer> NIL = new BSTNode<Integer>();
+		tree.insert(6);
+		assert tree.predecessor(6).equals(NIL);
+	}
+
+	@Test
+	public void sucessorTreeOnlyRoot()
+	{
+		//BSTNode<Integer> NIL = new BSTNode<Integer>();
+		tree.insert(6);
+		assert tree.sucessor(6).equals(NIL);
+	}
+
+	@Test
+	public void predecessorSmallestElement()
+	{
+		assert tree.predecessor(-40).equals(NIL);
+	}
+
+	@Test
+	public void sucessorBiggestElement()
+	{
+		assert tree.sucessor(232).equals(NIL);
 	}
 
 	@Test
