@@ -7,6 +7,7 @@ import adt.bst.SimpleBSTManipulationImpl;
 public class MyMain {
     public static void main(String[] args) {
         SimpleBSTManipulationImpl<Integer> sbm = new SimpleBSTManipulationImpl<Integer>();
+        FloorCeilBSTImpl fcb = new FloorCeilBSTImpl();
         BSTImpl<Integer> tree1 = new BSTImpl<Integer>();
         BSTImpl<Integer> tree2 = new BSTImpl<Integer>();
         Integer[] array = { 6, 23, -34, 5, 9, 2, 0, 76, 12, 67, 232, -40 };
@@ -15,7 +16,7 @@ public class MyMain {
             tree2.insert(i);
 		}
         
-       //tree1.insert(7);
-       System.out.println(sbm.equals(tree1, tree2));
+       Integer[] array2 = {3};
+       System.out.println(fcb.floor(array, -1));
     }
 }
