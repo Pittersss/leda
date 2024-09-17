@@ -17,6 +17,6 @@ public class MyMain {
 		}
         
        Integer[] array2 = {3};
-       System.out.println(fcb.floor(array, -1));
+       System.out.println(fcb.ceil(array, 3));
     }
 }

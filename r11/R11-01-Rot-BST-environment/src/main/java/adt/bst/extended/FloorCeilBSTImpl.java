@@ -58,9 +58,71 @@ public class FloorCeilBSTImpl extends BSTImpl<Integer> implements FloorCeilBST {
 	}
 
 	@Override
-	public Integer ceil(Integer[] array, double numero) {
-		//TODO Implemente seu codigo aqui
-		throw new UnsupportedOperationException("Not implemented yet!");
+	public Integer ceil(Integer[] array, double numero) 
+	{
+		Integer myCeil = null;
+		if (array.length != 0)
+		{
+			myCeil = ceil(array, numero, 0, null);
+		}
+		
+		return myCeil;
+	}
+
+	public Integer ceil(Integer[] array, double numero, int index, Integer ceil) 
+	{
+		Integer myCeil = ceil;
+		if(!verifyValidIndex(index + 1, array))
+		{
+			if (array[index] >= numero)
+			{
+				if (myCeil != null && array[index] < myCeil)
+				{
+					myCeil = array[index];
+				}
+				else{
+					myCeil = array[index];
+				}	
+			}
+		}
+		else{
+			if (verifyValidIndex(index + 1, array) && verifyValidIndex(index + 2, array))
+			{
+				int biggest = index + 2;
+				myCeil = array[index];
+				if (array[index + 1] > array[biggest])
+				{
+					biggest = index + 1;
+				}
+
+				if(array[biggest] >= numero)
+				{
+					if (myCeil != null && array[biggest] < myCeil)
+					{
+						myCeil = array[biggest];
+					}	
+				}
+				ceil(array, numero, biggest, myCeil);
+			}
+			else if(verifyValidIndex(index + 1, array))
+			{	
+				if (array[index + 1] >= numero)
+				{
+					if (myCeil != null && array[index + 1] < myCeil)
+					{
+						myCeil = array[index + 1];
+					}	
+				}		
+				ceil(array, numero, index + 1, myCeil);
+			}
+		}
+
+		return myCeil;
+	}
+
+	private boolean verifyValidIndex(int index, Integer[] array)
+	{
+		return index < array.length;
 	}
 
 }
