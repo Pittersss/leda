@@ -18,6 +18,8 @@ public class MyMain {
         
        Integer[] array2 = {3};
        tree1.remove(6);
-       System.out.println(tree1.getRoot().getRight().getData());
+       tree1.remove(9);
+       tree1.remove(12);
+       System.out.println(tree1.size());
     }
 }
