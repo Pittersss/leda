@@ -17,6 +17,7 @@ public class MyMain {
 		}
         
        Integer[] array2 = {3};
-       System.out.println(fcb.ceil(array, 3));
+       tree1.remove(6);
+       System.out.println(tree1.getRoot().getRight().getData());
     }
 }

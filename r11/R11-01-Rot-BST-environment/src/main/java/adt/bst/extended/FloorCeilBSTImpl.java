@@ -13,7 +13,7 @@ public class FloorCeilBSTImpl extends BSTImpl<Integer> implements FloorCeilBST {
 	@Override
 	public Integer floor(Integer[] array, double numero) {
 		int index = array.length - 1;
-		fillTree(index, array, numero);
+		fillTreeFloor(index, array, numero);
 		return floor(root, numero);
 
 	}
@@ -44,7 +44,7 @@ public class FloorCeilBSTImpl extends BSTImpl<Integer> implements FloorCeilBST {
 		return myNumber;
 	}
 
-	public void fillTree(Integer index, Integer[] array, double numero)
+	public void fillTreeFloor(Integer index, Integer[] array, double numero)
 	{
 		if (index == -1)
 		{}
@@ -53,7 +53,20 @@ public class FloorCeilBSTImpl extends BSTImpl<Integer> implements FloorCeilBST {
 			{
 				insert(array[index]);
 			}
-			fillTree(--index, array, numero);
+			fillTreeFloor(--index, array, numero);
+		}
+	}
+
+	public void fillTreeCeil(Integer index, Integer[] array, double numero)
+	{
+		if (index == -1)
+		{}
+		else{
+			if(array[index] >= numero)
+			{
+				insert(array[index]);
+			}
+			fillTreeCeil(--index, array, numero);
 		}
 	}
 
@@ -63,66 +76,28 @@ public class FloorCeilBSTImpl extends BSTImpl<Integer> implements FloorCeilBST {
 		Integer myCeil = null;
 		if (array.length != 0)
 		{
-			myCeil = ceil(array, numero, 0, null);
+			int index = array.length - 1;
+			fillTreeCeil(index, array, numero);
+			myCeil = ceil(root, numero);
 		}
 		
 		return myCeil;
 	}
 
-	public Integer ceil(Integer[] array, double numero, int index, Integer ceil) 
+	public Integer ceil(BSTNode<Integer> node, double numero)
 	{
-		Integer myCeil = ceil;
-		if(!verifyValidIndex(index + 1, array))
+		Integer myNumber = null;
+		if(node.isLeaf() || (node.getLeft().isEmpty() && !node.getRight().isEmpty()))
 		{
-			if (array[index] >= numero)
-			{
-				if (myCeil != null && array[index] < myCeil)
-				{
-					myCeil = array[index];
-				}
-				else{
-					myCeil = array[index];
-				}	
-			}
+			myNumber = node.getData();
 		}
 		else{
-			if (verifyValidIndex(index + 1, array) && verifyValidIndex(index + 2, array))
-			{
-				int biggest = index + 2;
-				myCeil = array[index];
-				if (array[index + 1] > array[biggest])
-				{
-					biggest = index + 1;
-				}
-
-				if(array[biggest] >= numero)
-				{
-					if (myCeil != null && array[biggest] < myCeil)
-					{
-						myCeil = array[biggest];
-					}	
-				}
-				ceil(array, numero, biggest, myCeil);
-			}
-			else if(verifyValidIndex(index + 1, array))
-			{	
-				if (array[index + 1] >= numero)
-				{
-					if (myCeil != null && array[index + 1] < myCeil)
-					{
-						myCeil = array[index + 1];
-					}	
-				}		
-				ceil(array, numero, index + 1, myCeil);
-			}
+			myNumber = ceil((BSTNode<Integer>)node.getLeft(), numero);
 		}
-
-		return myCeil;
+		return myNumber;
 	}
 
-	private boolean verifyValidIndex(int index, Integer[] array)
-	{
-		return index < array.length;
-	}
+	
+	
 
 }
