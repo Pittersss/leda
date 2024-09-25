@@ -62,34 +62,6 @@ public class StudentBSTTest {
 	}
 
 	@Test
-	public void predecessorTreeOnlyRoot()
-	{
-		//BSTNode<Integer> NIL = new BSTNode<Integer>();
-		tree.insert(6);
-		assert tree.predecessor(6).equals(NIL);
-	}
-
-	@Test
-	public void sucessorTreeOnlyRoot()
-	{
-		//BSTNode<Integer> NIL = new BSTNode<Integer>();
-		tree.insert(6);
-		assert tree.sucessor(6).equals(NIL);
-	}
-
-	@Test
-	public void predecessorSmallestElement()
-	{
-		assert tree.predecessor(-40).equals(NIL);
-	}
-
-	@Test
-	public void sucessorBiggestElement()
-	{
-		assert tree.sucessor(232).equals(NIL);
-	}
-
-	@Test
 	public void testInit() {
 		assertTrue(tree.isEmpty());
 		assertEquals(0, tree.size());

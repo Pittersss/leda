@@ -13,13 +13,10 @@ public class MyMain {
         Integer[] array = { 6, 23, -34, 5, 9, 2, 0, 76, 12, 67, 232, -40 };
 		for (int i : array) {
 			tree1.insert(i);
-            tree2.insert(i);
 		}
         
-       Integer[] array2 = {3};
-       tree1.remove(6);
-       tree1.remove(9);
-       tree1.remove(12);
-       System.out.println(tree1.size());
+       
+      
+        System.out.println(tree1.sucessor(-40));
     }
 }

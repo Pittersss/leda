@@ -97,14 +97,17 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 			if (node.getData().compareTo(element) > 0)
 			{
 				node.setLeft(newNode);
-				node.getLeft().setLeft(new BSTNode<T>());
-				node.getLeft().setRight(new BSTNode<T>());
 			}
 			else{
 				node.setRight(newNode);
-				node.getRight().setLeft(new BSTNode<T>());
-				node.getRight().setRight(new BSTNode<T>());
-			}	
+			}
+
+			newNode.setLeft(new BSTNode<T>());
+			newNode.getLeft().setParent(newNode);
+
+			newNode.setRight(new BSTNode<T>());
+			newNode.getRight().setParent(newNode);
+
 		}
 		else if((node.isEmpty() && node.getParent() != null))
 		{
@@ -182,22 +185,18 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	@Override
 	public BSTNode<T> sucessor(T element) {
-		BSTNode<T> mySucessor = new BSTNode<T>();
+		BSTNode<T> mySucessor = null;
 		
 		if(search(element).getData() != null)
 		{
 			mySucessor = sucessor(element, root);
-			if (mySucessor.equals(new BSTNode<T>()))
-			{
-				mySucessor = new BSTNode<T>();
-			}	
 		}
 		return mySucessor;
 	}
 
 	public BSTNode<T> sucessor(T element, BSTNode<T> node) 
 	{
-		BSTNode<T> mySucessor = new BSTNode<T>();;
+		BSTNode<T> mySucessor = null;
 		
 		if ( node.isEmpty() )
 		{}
@@ -219,7 +218,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 			}
 		}
 
-		if( mySucessor.isEmpty()  && !node.isEmpty() 
+		if(mySucessor == null && !node.isEmpty() 
 		  && node.getData().compareTo(element) > 0 ) 
 		{
 			mySucessor = node;
@@ -230,20 +229,16 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	@Override
 	public BSTNode<T> predecessor(T element) {
-		BSTNode<T> myPredecessor = new BSTNode<T>();
+		BSTNode<T> myPredecessor = null;
 		if (search(element).getData() != null)
 		{
 			myPredecessor = predecessor(element, root);
-			if (myPredecessor.equals(new BSTNode<T>()))
-			{
-				myPredecessor = new BSTNode<T>();
-			}	
 		}
 
 		return myPredecessor;
 	}
 	public BSTNode<T> predecessor(T element, BSTNode<T> node) {
-		BSTNode<T> myPredecessor = new BSTNode<T>();
+		BSTNode<T> myPredecessor = null;
 		
 		if ( node.isEmpty() )
 		{}
@@ -265,7 +260,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 			}
 		}
 
-		if( myPredecessor.isEmpty()  && !node.isEmpty() 
+		if(myPredecessor == null && !node.isEmpty() 
 		  && node.getData().compareTo(element) < 0 ) 
 		{
 			myPredecessor = node;
@@ -280,97 +275,120 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 		{
 			remove(element, root);
 		}
-	}
+  	}
 
-	public void remove(T element, BSTNode<T> node) {
-
-		if(node.getData().equals(element))
+	public void remove(T element, BSTNode<T> node) 
+	{
+		if (search(element) != new BSTNode<T>())
 		{
-			if(node.isLeaf())
+		
+		if(node.isLeaf())
+		{
+			if(node.equals(root))
 			{
-				if(node.getData().compareTo(node.getParent().getData()) < 0)
+				if(node.getParent() != null)
 				{
-					node.getParent().setLeft(new BSTNode<T>());
+					if(node.getData().compareTo(node.getParent().getData()) < 0)
+					{
+						node.getParent().setLeft(new BSTNode<T>());
+					}
+					else{
+						node.getParent().setRight(new BSTNode<T>());
+					}
 				}
 				else{
-					node.getParent().setRight(new BSTNode<T>());
+					root = new BSTNode<T>();
 				}
-				node.setData(null);
-			}
-			else if(hasOnlyLeftChild(node) || hasOnlyRightChild(node))
-			{
 				
-				if (hasOnlyLeftChild(node)){
-					if(node.getParent() == null)
+			}
+			else if(node.getData().compareTo(node.getParent().getData()) < 0)
+			{
+				node.getParent().setLeft(new BSTNode<T>());
+			}
+			else{
+				node.getParent().setRight(new BSTNode<T>());
+			}
+		}
+			
+		else if(hasOnlyLeftChild(node) || hasOnlyRightChild(node))
+		{
+				
+			if (hasOnlyLeftChild(node)){
+				if(node.equals(root))
+				{
+					if(node.getParent() != null)
 					{
-						node = (BSTNode<T>)node.getLeft();
-						node.setParent(null);
-					}
-					else{
-						BSTNode<T> myNode = null;
-						node.getRight().setParent(node.getParent());
 						if(node.getData().compareTo(node.getParent().getData()) < 0)
 						{
-							myNode = (BSTNode<T>)node.getParent().getLeft();
-							myNode = (BSTNode<T>)node.getRight();
+							node.getLeft().setParent(node.getParent());
+							node.getParent().setLeft(node.getLeft());
 						}
 						else{
-							myNode = (BSTNode<T>)node.getParent().getRight();
-							myNode = (BSTNode<T>)node.getRight();
+							node.getLeft().setParent(node.getParent());
+							node.getParent().setRight(node.getLeft());
 						}
+					}
+					else{
+						root = (BSTNode<T>)node.getLeft();
+						root.setParent(null);
+					}
+				}
+				else
+				{
+					node.getLeft().setParent(node.getParent());
+					if(node.getData().compareTo(node.getParent().getData()) < 0)
+					{
+						node.getParent().setLeft(node.getLeft());
+					}
+					else{
+						node.getParent().setRight(node.getLeft());
+					}
+				}
+					
+			}
+			else{
+				if(node.equals(root))
+				{
+					if(node.getParent() != null)
+					{
+						if(node.getData().compareTo(node.getParent().getData()) < 0)
+						{
+							node.getRight().setParent(node.getParent());
+							node.getParent().setLeft(node.getRight());
+						}
+						else{
+							node.getRight().setParent(node.getParent());
+							node.getParent().setRight(node.getRight());
+						}
+					}
+					else{
+						root = (BSTNode<T>)node.getRight();
+						root.setParent(null);
 					}
 					
 				}
 				else{
-					if(node.getParent() == null)
+					node.getRight().setParent(node.getParent());
+					if(node.getData().compareTo(node.getParent().getData()) < 0)
 					{
-						node = (BSTNode<T>)node.getRight();
-						node.setParent(null);
+						node.getParent().setLeft(node.getRight());
 					}
 					else{
-						BSTNode<T> myNode = null;
-						node.getRight().setParent(node.getParent());
-						if(node.getData().compareTo(node.getParent().getData()) < 0)
-						{
-							myNode = (BSTNode<T>)node.getParent().getLeft();
-							myNode = (BSTNode<T>)node.getLeft();
-						}
-						else{
-							myNode = (BSTNode<T>)node.getParent().getRight();
-							myNode = (BSTNode<T>)node.getLeft();
-						}
-						//node.setData(node.getRight().getData());
-						//node.setRight(node.getRight().getRight());
+						node.getParent().setRight(node.getRight());
 					}
-					
 				}
+					
+			}
 			}
 			else if(hasTwoChilds(node))
 			{
-				//if(!node.equals(root))
-				//{
-					BSTNode<T> auxSucessor = sucessor(element);
-					node.setData(auxSucessor.getData());
-					remove(auxSucessor.getData(), auxSucessor);
-				//}
-				// else{
-				// 	node.setData(node.getRight().getData());
-				// 	node.getRight().setLeft(node.getRight());
-				// 	node.setParent(null);
-				// }
-			}	
-		}
-		else{
-			if (node.getData().compareTo(element) < 0)
-			{
-				remove(element, (BSTNode<T>)node.getRight());
-			}
-			else{
-				remove(element, (BSTNode<T>)node.getLeft());
+				BSTNode<T> auxSucessor = sucessor(element);
+				node.setData(auxSucessor.getData());
+				remove(auxSucessor.getData(), auxSucessor);
 			}
 		}
-		
 	}
+		
 
 	private boolean hasOnlyLeftChild(BSTNode<T> node)
 	{
